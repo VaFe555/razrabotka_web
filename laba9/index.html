@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <title>Drum Kit</title>
+  <link href="https://fonts.googleapis.com/css?family=Arvo" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <h1 id="title">Drum 🥁 Kit</h1>
+  
+
+
+  <div class="set">
+    <button class="w drum"><span>w</span></button>
+    <button class="a drum"><span>a</span></button>
+    <button class="s drum"><span>s</span></button>
+    <button class="d drum"><span>d</span></button>
+    <button class="j drum"><span>j</span></button>
+    <button class="k drum"><span>k</span></button>
+    <button class="l drum"><span>l</span></button>
+  </div>
+
+  <footer>
+    Made with ❤️ in London. | Sounds from local sounds folder | Images from local images folder
+  </footer>
+
+  <script>
+    // Функция для создания звукового объекта
+    function createSound(src) {
+      const audio = new Audio();
+      audio.src = src;
+      audio.preload = 'auto';
+      return audio;
+    }
+
+    // Создаем объект для хранения звуков из папки sounds
+    const sounds = {
+      'w': createSound('sounds/crash.mp3'),
+      'a': createSound('sounds/kick-bass.mp3'),
+      's': createSound('sounds/snare.mp3'),
+      'd': createSound('sounds/tom-1.mp3'),
+      'j': createSound('sounds/tom-2.mp3'),
+      'k': createSound('sounds/tom-3.mp3'),
+      'l': createSound('sounds/tom-4.mp3')
+    };
+
+    // Функция для воспроизведения звука
+    function playSound(key) {
+      if (sounds[key]) {
+        try {
+          // Сбрасываем звук на начало, если он уже играет
+          sounds[key].currentTime = 0;
+          const playPromise = sounds[key].play();
+          
+          if (playPromise !== undefined) {
+            playPromise.catch(error => {
+              console.log('Audio play failed:', error);
+            });
+          }
+          
+          // Добавляем визуальный эффект нажатия
+          const button = document.querySelector(`.${key}`);
+          button.classList.add('pressed');
+          
+          // Убираем класс через короткое время
+          setTimeout(() => {
+            button.classList.remove('pressed');
+          }, 150);
+          
+        } catch (error) {
+          console.error('Error playing sound:', error);
+        }
+      }
+    }
+
+    // Получаем все кнопки с классом 'drum'
+    const drumButtons = document.querySelectorAll('.drum');
+
+    // Используем цикл for для добавления обработчиков событий
+    for (let i = 0; i < drumButtons.length; i++) {
+      const button = drumButtons[i];
+      
+      // Обработчик клика мышью
+      button.addEventListener('click', function() {
+        const buttonKey = this.classList[0]; // Получаем первый класс (w, a, s и т.д.)
+        playSound(buttonKey);
+      });
+
+      // Добавляем обработчик для touch событий (для мобильных устройств)
+      button.addEventListener('touchstart', function(e) {
+        e.preventDefault();
+        const buttonKey = this.classList[0];
+        playSound(buttonKey);
+      });
+    }
+
+    // Обработчик нажатия клавиш на клавиатуре
+    document.addEventListener('keydown', function(event) {
+      const key = event.key.toLowerCase();
+      if (['w', 'a', 's', 'd', 'j', 'k', 'l'].includes(key)) {
+        playSound(key);
+      }
+    });
+
+    // Предзагрузка звуков при загрузке страницы
+    window.addEventListener('load', function() {
+      console.log('Preloading sounds...');
+      for (const key in sounds) {
+        if (sounds.hasOwnProperty(key)) {
+          sounds[key].load();
+        }
+      }
+    });
+
+    // Обработка ошибок загрузки звуков
+    for (const key in sounds) {
+      if (sounds.hasOwnProperty(key)) {
+        sounds[key].addEventListener('error', function(e) {
+          console.error(`Error loading sound for key ${key}:`, e);
+        });
+      }
+    }
+  </script>
+</body>
+</html>
