@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Задачи</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: white;
+            padding: 20px;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .tasks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .task-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-align: center;
+        }
+        
+        .task-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+        
+        .task-title {
+            font-size: 1.5rem;
+            color: #764ba2;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 10px;
+        }
+        
+        .task-description {
+            margin-bottom: 20px;
+            line-height: 1.6;
+            color: #555;
+        }
+        
+        .task-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+        
+        button {
+            background: linear-gradient(to right, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+            margin-top: 10px;
+        }
+        
+        button:hover {
+            background: linear-gradient(to right, #5a6fd8, #6a4190);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .instructions {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        footer {
+            text-align: center;
+            color: white;
+            padding: 20px;
+            margin-top: 40px;
+            opacity: 0.8;
+        }
+        
+        @media (max-width: 768px) {
+            .tasks-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Задачи</h1>
+            <p class="subtitle">Интерактивное решение практических задач с использованием prompt и alert</p>
+        </header>
+        
+        
+        <div class="tasks-grid">
+            <!-- Калькулятор любви -->
+            <div class="task-card">
+                <div class="task-icon">💖</div>
+                <h2 class="task-title">Калькулятор любви</h2>
+                <p class="task-description">Узнайте, насколько вы подходите друг другу! Введите два имени и получите результат.</p>
+                <button onclick="calculateLove()">Запустить калькулятор</button>
+            </div>
+            
+            <!-- BMI Калькулятор -->
+            <div class="task-card">
+                <div class="task-icon">⚖️</div>
+                <h2 class="task-title">BMI Калькулятор</h2>
+                <p class="task-description">Рассчитайте индекс массы тела и узнайте свою весовую категорию.</p>
+                <button onclick="calculateBMI()">Рассчитать ИМТ</button>
+            </div>
+            
+            <!-- Високосный год -->
+            <div class="task-card">
+                <div class="task-icon">📅</div>
+                <h2 class="task-title">Високосный год</h2>
+                <p class="task-description">Проверьте, является ли выбранный год високосным.</p>
+                <button onclick="checkLeapYear()">Проверить год</button>
+            </div>
+            
+            <!-- Кто оплачивает ужин -->
+            <div class="task-card">
+                <div class="task-icon">🍽️</div>
+                <h2 class="task-title">Кто оплачивает ужин?</h2>
+                <p class="task-description">Введите имена через запятую, и мы случайным образом выберем, кто платит за ужин.</p>
+                <button onclick="selectDinnerPayer()">Выбрать плательщика</button>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Решение практических задач с использованием prompt и alert &copy; 2023</p>
+        </footer>
+    </div>
+
+    <script>
+        // 1. Калькулятор любви
+        function calculateLove() {
+            const firstName = prompt("Введите первое имя:");
+            if (!firstName) {
+                alert("Вы отменили ввод!");
+                return;
+            }
+            
+            const secondName = prompt("Введите второе имя:");
+            if (!secondName) {
+                alert("Вы отменили ввод!");
+                return;
+            }
+            
+            // Генерируем "случайный" процент на основе имен
+            let sum = 0;
+            for (let i = 0; i < firstName.length; i++) {
+                sum += firstName.charCodeAt(i);
+            }
+            for (let i = 0; i < secondName.length; i++) {
+                sum += secondName.charCodeAt(i);
+            }
+            
+            const lovePercentage = (sum % 101);
+            
+            let message;
+            if (lovePercentage > 80) {
+                message = "Идеальная пара! Это настоящая любовь!";
+            } else if (lovePercentage > 60) {
+                message = "Отличная совместимость! У вас есть все шансы!";
+            } else if (lovePercentage > 40) {
+                message = "Хорошая совместимость! Нужно работать над отношениями!";
+            } else if (lovePercentage > 20) {
+                message = "Сложная совместимость! Придется постараться!";
+            } else {
+                message = "Очень низкая совместимость! Возможно, это не ваша пара!";
+            }
+            
+            alert(`${firstName} подходит к ${secondName} на ${lovePercentage}%\n\n${message}`);
+        }
+        
+        // 2. BMI Калькулятор
+        function calculateBMI() {
+            const weightInput = prompt("Введите ваш вес в килограммах:");
+            if (!weightInput) {
+                alert("Вы отменили ввод!");
+                return;
+            }
+            
+            const weight = parseFloat(weightInput);
+            if (isNaN(weight) || weight <= 0) {
+                alert("Пожалуйста, введите корректный вес!");
+                return;
+            }
+            
+            const heightInput = prompt("Введите ваш рост в метрах (например, 1.75):");
+            if (!heightInput) {
+                alert("Вы отменили ввод!");
+                return;
+            }
+            
+            const height = parseFloat(heightInput);
+            if (isNaN(height) || height <= 0) {
+                alert("Пожалуйста, введите корректный рост!");
+                return;
+            }
+            
+            const bmi = (weight / (height * height)).toFixed(1);
+            
+            let category;
+            if (bmi <= 18.5) {
+                category = "Недостаточный вес";
+            } else if (bmi <= 25) {
+                category = "Нормальный вес";
+            } else if (bmi <= 30) {
+                category = "Излишек веса";
+            } else {
+                category = "Ожирение";
+            }
+            
+            alert(`Ваш ИМТ: ${bmi}\n\nКатегория: ${category}\n\nИнтерпретация:\n• Меньше 18.5 - Недостаточный вес\n• 18.5-25 - Нормальный вес\n• 25-30 - Излишек веса\n• Больше 30 - Ожирение`);
+        }
+        
+        // 3. Проверка високосного года
+        function checkLeapYear() {
+            const yearInput = prompt("Введите год для проверки:");
+            if (!yearInput) {
+                alert("Вы отменили ввод!");
+                return;
+            }
+            
+            const year = parseInt(yearInput);
+            if (isNaN(year) || year <= 0) {
+                alert("Пожалуйста, введите корректный год!");
+                return;
+            }
+            
+            let isLeap = false;
+            
+            if (year % 4 === 0) {
+                if (year % 100 === 0) {
+                    if (year % 400 === 0) {
+                        isLeap = true;
+                    }
+                } else {
+                    isLeap = true;
+                }
+            }
+            
+            const result = isLeap ? "ВИСОКОСНЫЙ год" : "НЕ високосный год";
+            const explanation = isLeap 
+                ? "В этом году 366 дней, а в феврале 29 дней!" 
+                : "В этом году 365 дней, февраль имеет 28 дней.";
+                
+            alert(`${year} год: ${result}\n\n${explanation}\n\nПравила определения:\n• Делится на 4 - возможно високосный\n• Делится на 100 - не високосный\n• Делится на 400 - високосный`);
+        }
+        
+        // 4. Кто оплачивает ужин
+        function selectDinnerPayer() {
+            const namesInput = prompt("Введите имена участников через запятую:\n(например: Дима, Катя, Петр, Лена)");
+            if (!namesInput) {
+                alert("Вы отменили ввод!");
+                return;
+            }
+            
+            const names = namesInput.split(',').map(name => name.trim()).filter(name => name !== '');
+            
+            if (names.length === 0) {
+                alert("Пожалуйста, введите корректные имена!");
+                return;
+            }
+            
+            if (names.length === 1) {
+                alert("Нужно ввести хотя бы два имени!");
+                return;
+            }
+            
+            const randomIndex = Math.floor(Math.random() * names.length);
+            const payer = names[randomIndex];
+            
+            let participantsList = "Участники ужина:\n";
+            names.forEach((name, index) => {
+                participantsList += `${index + 1}. ${name}\n`;
+            });
+            
+            alert(`${participantsList}\n\n🎉 Решение принято! 🎉\n\n💰 Оплачивать ужин будет:\n${payer.toUpperCase()}!`);
+        }
+    </script>
+</body>
+</html>
