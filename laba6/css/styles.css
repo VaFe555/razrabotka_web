@@ -1,0 +1,131 @@
+#title 
+{ 
+background: #ff3c68;
+color: rgb(255, 255, 255);
+}
+.navbar-brand
+{
+    font-size: 2.5rem ;
+    font-weight: bold;
+    font-family:"Ubuntu";
+}
+.nav-link
+{
+    font-family:"Montserrat";
+    font-size:85%;
+    font-weight: 300;
+}
+.nav-item
+{
+    padding:18px;
+}
+.navbar 
+{
+    padding-bottom: 4.5rem;
+}
+.download-button
+{
+    margin: 5% 3% 0% 5%
+}
+.title-image
+{
+    transform: rotate(25deg);
+    width: 60%;
+}
+.ubuntu-light {
+    font-family: "Ubuntu", serif;
+    font-weight: 300;
+    font-style: normal;
+  }
+  
+  .ubuntu-regular {
+    font-family: "Ubuntu", serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+  .ubuntu-medium {
+    font-family: "Ubuntu", serif;
+    font-weight: 500;
+    font-style: normal;
+  }
+  
+  .ubuntu-bold {
+    font-family: "Ubuntu", serif;
+    font-weight: 700;
+    font-style: normal;
+  }
+  
+  .ubuntu-light-italic {
+    font-family: "Ubuntu", serif;
+    font-weight: 300;
+    font-style: italic;
+  }
+  
+  .ubuntu-regular-italic {
+    font-family: "Ubuntu", serif;
+    font-weight: 400;
+    font-style: italic;
+  }
+  
+  .ubuntu-medium-italic {
+    font-family: "Ubuntu", serif;
+    font-weight: 500;
+    font-style: italic;
+  }
+  
+  .ubuntu-bold-italic {
+    font-family: "Ubuntu", serif;
+    font-weight: 700;
+    font-style: italic;
+  }
+  .montserrat-auto {
+    font-family: "Montserrat", serif;
+    font-optical-sizing: auto;
+    font-weight: 3rem;
+    font-style: normal;
+  }
+body
+{
+    font-family:"Montserrat";
+}
+h2
+{
+  line-height: 1.5;
+    font-family:"Montserrat";
+    font-weight: 700;
+    font-weight: 3rem;
+}
+#testimonials 
+{
+  text-align:center;
+  background-color: #ef8172;
+}
+.testimonial-image
+{
+  width: 20%;
+  border-radius: 100%;
+  margin: 50px;
+  padding: 15% 0%;
+}
+#press
+{
+text-align:center;
+padding: 0% 0% 3% 0%;
+background-color: #ef8172;
+}
+.press-logo
+{
+  width: 15%;
+  padding: 20px 20px 50px;
+}
+#pricing
+{
+  
+text-align:center;
+}
+.card-deck
+{
+align-content: center;
+text-align:center;
+}
